@@ -1,10 +1,11 @@
 import "./App.css";
+import { Header } from "./features/Header";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">forum romarum</header>
-    </div>
+    <main className="App">
+      <Header />
+    </main>
   );
 }
 
