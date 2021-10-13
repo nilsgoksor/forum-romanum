@@ -2,35 +2,20 @@ import { useState } from "react";
 import * as S from "./Posts.styles";
 import { CreateNewPost } from "./CreateNewPost";
 import { Post } from "../../components/Post";
+import { UseFetchPosts } from "../../hooks";
 
 export const Posts = () => {
   const [createNewPost, setCreateNewPost] = useState(false);
 
-  const posts = [
-    {
-      id: 1,
-      body: "Hello mate this is a very long text probably two or five rows I donno I will add some more just to be safe lad",
-      author: "Nils",
-    },
-    {
-      id: 2,
-      body: "Hello mate",
-      author: "Nils",
-      comments: [
-        {
-          id: 21,
-          body: "Hello mate this is a very long text probably two or five rows I donno I will add some more just to be safe lad",
-          author: "Johan",
-        },
-        {
-          id: 22,
-          body: "My second comment",
-          author: "Johan",
-        },
-      ],
-    },
-    { id: 3, body: "Hello mate", author: "Nils" },
-  ];
+  const { posts, loading, error } = UseFetchPosts();
+
+  if (loading) {
+    return <p>Loading...</p>;
+  }
+
+  if (error) {
+    return <p>{error}</p>;
+  }
 
   return (
     <S.PostsContainer>

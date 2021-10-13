@@ -1,0 +1,28 @@
+{
+  "posts": [
+    {
+      "id": 1,
+      "body": "Post 1 by Nils",
+      "author": "Nils",
+      "comments": [
+        {
+          "id": 1,
+          "postId": "1",
+          "body": "Comment 1 by admin",
+          "author": "Admin"
+        },
+        {
+          "id": 2,
+          "postId": "1",
+          "body": "Comment 2 by admin",
+          "author": "Admin"
+        }
+      ]
+    },
+    { "id": 2, "body": "Post 1 by admin", "author": "Admin" }
+  ],
+  "authors": [
+    { "author": "Nils", "password": "Nils123" },
+    { "author": "Admin", "password": "Admin123" }
+  ]
+}
