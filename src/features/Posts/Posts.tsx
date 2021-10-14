@@ -1,32 +1,26 @@
 import * as S from "./Posts.styles";
-import { Post } from "../../components/Post";
-import { UseFetchPosts } from "../../hooks";
+import { PostI } from "../../model/post/Post.interface";
+import { ForumPost } from "../../components/ForumPost";
 
-export const Posts = () => {
-  const { posts, loading, error } = UseFetchPosts();
+interface PostsI {
+  posts: PostI[];
+  onSavePost(post: PostI): void;
+  onDeletePost(id: number): void;
+}
 
-  if (loading) {
-    return <p>Loading...</p>;
-  }
-
-  if (error) {
-    return <p>Error fetching data. Perhaps the database is down?</p>;
-  }
-
+export const Posts = ({ posts, onSavePost, onDeletePost }: PostsI) => {
   return (
     <S.PostsContainer>
-      <div>
-        <S.PostContainer>
-          {posts.map((post) => (
-            <Post
-              key={post.id}
-              id={post.id}
-              body={post.body}
-              author={post.author}
-            />
-          ))}
-        </S.PostContainer>
-      </div>
+      <S.PostContainer>
+        {posts.map((post) => (
+          <ForumPost
+            key={post.id}
+            {...post}
+            onSavePost={onSavePost}
+            onDeletePost={onDeletePost}
+          />
+        ))}
+      </S.PostContainer>
     </S.PostsContainer>
   );
 };
