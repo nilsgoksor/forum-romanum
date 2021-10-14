@@ -1,13 +1,16 @@
 import "./App.css";
 import { Header } from "./features/Header";
 import { Posts } from "./features/Posts";
+import { AppProvider } from "./state";
 
 function App() {
   return (
-    <main className="App">
-      <Header />
-      <Posts />
-    </main>
+    <AppProvider>
+      <main className="App">
+        <Header />
+        <Posts />
+      </main>
+    </AppProvider>
   );
 }
 
