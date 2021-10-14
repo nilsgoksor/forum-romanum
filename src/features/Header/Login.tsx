@@ -1,9 +1,10 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import Button from "@mui/material/Button";
 import Input from "@mui/material/Input";
 import Link from "@mui/material/Link";
 import Modal from "@mui/material/Modal";
 import * as S from "./Header.styles";
+import { AppContext, Types } from "../../state";
 
 interface LoginI {
   open: boolean;
@@ -11,6 +12,8 @@ interface LoginI {
 }
 
 export const Login = ({ open, closeLogin }: LoginI) => {
+  const { dispatch } = useContext(AppContext);
+
   const [signUp, setSignUp] = useState(false);
   const [loginEmail, setLoginEmail] = useState("");
   const [loginPassword, setLoginPassword] = useState("");
@@ -18,10 +21,19 @@ export const Login = ({ open, closeLogin }: LoginI) => {
   const [signUpPassword, setSignUpPassword] = useState("");
 
   const loginHandler = () => {
-    console.log("LOGIN BY", loginEmail);
+    // TODO: check data
+
+    dispatch({ type: Types.SetIsLoggedIn, payload: { status: true } });
+    dispatch({ type: Types.SetAuthor, payload: { author: loginEmail } });
+    setLoginEmail("");
+    setLoginPassword("");
+    closeLogin();
   };
+
   const signUpHandler = () => {
+    // TODO: sign up
     console.log("SIGN UP BY", signUpEmail);
+    closeLogin();
   };
 
   return (
