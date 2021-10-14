@@ -5,14 +5,14 @@ import axios from "axios";
 export const UseFetchPosts = (): {
   posts: PostI[];
   loading: boolean;
-  error: string;
+  error: boolean;
 } => {
   const [posts, setPosts] = useState<PostI[]>([]);
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState("");
+  const [error, setError] = useState(false);
 
   useEffect(() => {
-    setError("");
+    setError(false);
     setLoading(true);
     axios
       .get<PostI[]>("http://localhost:1337/posts")
@@ -21,7 +21,7 @@ export const UseFetchPosts = (): {
         setLoading(false);
       })
       .catch((e) => {
-        setError("Error fetching data");
+        setError(true);
         setLoading(false);
       });
   }, []);

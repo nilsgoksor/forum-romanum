@@ -1,12 +1,13 @@
 export interface PostI {
-  id: number;
+  id?: number;
   body: string;
   author: string;
-  comments?: CommentI[];
+  nbrOfComments?: number;
 }
 
 export interface CommentI {
   id: number;
+  postId: number;
   body: string;
   author: string;
 }
