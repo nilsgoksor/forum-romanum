@@ -1,5 +1,4 @@
 import * as S from "./Posts.styles";
-import { CreateNewPost } from "./CreateNewPost";
 import { Post } from "../../components/Post";
 import { UseFetchPosts } from "../../hooks";
 
@@ -17,7 +16,6 @@ export const Posts = () => {
   return (
     <S.PostsContainer>
       <div>
-        <CreateNewPost />
         <S.PostContainer>
           {posts.map((post) => (
             <Post
