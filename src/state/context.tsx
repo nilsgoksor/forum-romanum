@@ -3,7 +3,7 @@ import { AppReducer, StateI } from ".";
 
 export const initialState: StateI = {
   isLoggedIn: false,
-  author: "",
+  user: "",
 };
 
 const AppContext = createContext<{

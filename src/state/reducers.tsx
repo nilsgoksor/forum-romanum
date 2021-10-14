@@ -15,10 +15,10 @@ export const AppReducer = (state: StateI, action: ActionI) => {
         ...state,
         isLoggedIn: action.payload.status,
       };
-    case Types.SetAuthor:
+    case Types.SetUser:
       return {
         ...state,
-        author: action.payload.author,
+        user: action.payload.user,
       };
     default:
       return state;

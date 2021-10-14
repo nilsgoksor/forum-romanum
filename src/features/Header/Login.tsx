@@ -24,7 +24,7 @@ export const Login = ({ open, closeLogin }: LoginI) => {
     // TODO: check data
 
     dispatch({ type: Types.SetIsLoggedIn, payload: { status: true } });
-    dispatch({ type: Types.SetAuthor, payload: { author: loginEmail } });
+    dispatch({ type: Types.SetUser, payload: { user: loginEmail } });
     setLoginEmail("");
     setLoginPassword("");
     closeLogin();

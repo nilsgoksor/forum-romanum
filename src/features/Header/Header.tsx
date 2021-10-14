@@ -12,7 +12,7 @@ export const Header = () => {
 
   const logoutHandler = () => {
     dispatch({ type: Types.SetIsLoggedIn, payload: { status: false } });
-    dispatch({ type: Types.SetAuthor, payload: { author: "" } });
+    dispatch({ type: Types.SetUser, payload: { user: "" } });
   };
 
   return (

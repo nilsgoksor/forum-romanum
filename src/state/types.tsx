@@ -1,18 +1,18 @@
 export type StateI = {
   isLoggedIn: boolean;
-  author: string;
+  user: string;
 };
 
 export enum Types {
   SetIsLoggedIn = "SET_IS_LOGGED_IN",
-  SetAuthor = "SET_AUTHOR",
+  SetUser = "SET_USER",
 }
 
 export type ActionPayload = {
   [Types.SetIsLoggedIn]: {
     status: boolean;
   };
-  [Types.SetAuthor]: {
-    author: string;
+  [Types.SetUser]: {
+    user: string;
   };
 };
