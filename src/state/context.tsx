@@ -6,6 +6,7 @@ export const initialState: StateI = {
   isLoggedIn: false,
   user: "",
   userMessage: { message: "", type: MessageType.SUCCESS },
+  posts: [],
 };
 
 const AppContext = createContext<{

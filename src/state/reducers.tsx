@@ -21,6 +21,42 @@ export const AppReducer = (state: StateI, action: ActionI) => {
         ...state,
         user: action.payload.user,
       };
+    case Types.SetPosts:
+      return { ...state, posts: action.payload.posts };
+    case Types.CreatePost:
+      return {
+        ...state,
+        posts: [...state.posts, action.payload.createdPost],
+        userMessage: { message: "Post created", type: MessageType.SUCCESS },
+      };
+    case Types.SavePost:
+      const modifiedPosts = [...state.posts];
+      const saveIndex = modifiedPosts.findIndex(
+        (p) => p.id === action.payload.savedPost.id
+      );
+      if (saveIndex !== -1) {
+        modifiedPosts.splice(saveIndex, 1, action.payload.savedPost);
+        return {
+          ...state,
+          posts: modifiedPosts,
+          userMessage: { message: "Post saved", type: MessageType.SUCCESS },
+        };
+      }
+      return state;
+    case Types.DeletePost:
+      const updatedPosts = [...state.posts];
+      const removeIndex = updatedPosts.findIndex(
+        (p) => p.id === action.payload.id
+      );
+      if (removeIndex !== -1) {
+        updatedPosts.splice(removeIndex, 1);
+        return {
+          ...state,
+          posts: updatedPosts,
+          userMessage: { message: "Post deleted", type: MessageType.SUCCESS },
+        };
+      }
+      return state;
     case Types.SetUserMessage:
       return {
         ...state,
