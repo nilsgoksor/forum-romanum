@@ -1,3 +1,4 @@
+import { MessageType } from "../components/UserMessage";
 import { ActionPayload, StateI, Types } from "./types";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -19,6 +20,14 @@ export const AppReducer = (state: StateI, action: ActionI) => {
       return {
         ...state,
         user: action.payload.user,
+      };
+    case Types.SetUserMessage:
+      return {
+        ...state,
+        userMessage: {
+          message: action.payload.message,
+          type: action.payload.type,
+        },
       };
     default:
       return state;

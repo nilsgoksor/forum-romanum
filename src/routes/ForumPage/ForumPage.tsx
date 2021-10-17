@@ -1,8 +1,9 @@
+import { useContext } from "react";
 import { Posts } from "../../features/Posts";
 import { CreateNewPost } from "../../features/CreateNewPost";
 import axios from "axios";
-import { useEffect, useState } from "react";
-import { CreatePostI, PostI } from "../../model/post/Post.interface";
+import { AppContext, Types } from "../../state";
+import { MessageType, UserMessage } from "../../components/UserMessage";
 
 export const ForumPage = () => {
   const [posts, setPosts] = useState<PostI[]>([]);
@@ -42,8 +43,15 @@ export const ForumPage = () => {
 
   return (
     <>
-      <CreateNewPost
-        onCreatePost={(post: CreatePostI) => handleCreatePost(post)}
+      <UserMessage
+        message={userMessage.message}
+        handleClose={() =>
+          dispatch({
+            type: Types.SetUserMessage,
+            payload: { message: "", type: MessageType.SUCCESS },
+          })
+        }
+        type={userMessage.type}
       />
       <Posts
         posts={posts}

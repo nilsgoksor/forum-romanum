@@ -1,9 +1,11 @@
 import React, { createContext, useReducer, ReactNode, useEffect } from "react";
 import { AppReducer, StateI } from ".";
+import { MessageType } from "../components/UserMessage";
 
 export const initialState: StateI = {
   isLoggedIn: false,
   user: "",
+  userMessage: { message: "", type: MessageType.SUCCESS },
 };
 
 const AppContext = createContext<{
