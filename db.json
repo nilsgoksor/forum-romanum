@@ -1,25 +1,5 @@
 {
-  "posts": [
-    {
-      "body": "A new post",
-      "author": "post.author",
-      "id": 1
-    },
-    {
-      "body": "My firsdt post",
-      "author": "Guillermo",
-      "id": 2
-    }
-  ],
-  "comments": [{ "id": 1, "postId": 1, "body": "Awesome!", "author": "Admin" }],
-  "authors": [
-    {
-      "author": "Nils",
-      "password": "Nils123"
-    },
-    {
-      "author": "Admin",
-      "password": "Admin123"
-    }
-  ]
+  "posts": [],
+  "comments": [],
+  "users": []
 }

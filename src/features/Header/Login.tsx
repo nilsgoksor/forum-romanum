@@ -5,6 +5,10 @@ import Link from "@mui/material/Link";
 import Modal from "@mui/material/Modal";
 import * as S from "./Header.styles";
 import { AppContext, Types } from "../../state";
+import axios from "axios";
+import { UserI } from "../../model/user/User.interface";
+import { MessageType } from "../../components/UserMessage";
+import bcrypt from "bcryptjs";
 
 interface LoginI {
   open: boolean;
@@ -15,24 +19,59 @@ export const Login = ({ open, closeLogin }: LoginI) => {
   const { dispatch } = useContext(AppContext);
 
   const [signUp, setSignUp] = useState(false);
-  const [loginEmail, setLoginEmail] = useState("");
-  const [loginPassword, setLoginPassword] = useState("");
-  const [signUpEmail, setSignUpEmail] = useState("");
+  const [user, setUser] = useState("");
+  const [password, setPassword] = useState("");
+  const [signUpUser, setSignUpUser] = useState("");
   const [signUpPassword, setSignUpPassword] = useState("");
 
   const loginHandler = () => {
-    // TODO: check data
-
-    dispatch({ type: Types.SetIsLoggedIn, payload: { status: true } });
-    dispatch({ type: Types.SetUser, payload: { user: loginEmail } });
-    setLoginEmail("");
-    setLoginPassword("");
-    closeLogin();
+    axios
+      .get<UserI[]>(`http://localhost:1337/users?user=${user}`)
+      .then((res) => {
+        const resUser = res.data[0];
+        if (typeof resUser !== "undefined") {
+          const doesPasswordMatch = bcrypt.compareSync(
+            password,
+            res.data[0].password
+          );
+          if (doesPasswordMatch) {
+            dispatch({ type: Types.SetIsLoggedIn, payload: { status: true } });
+            dispatch({ type: Types.SetUser, payload: { user: user } });
+            setUser("");
+            setPassword("");
+            closeLogin();
+          } else {
+            dispatch({
+              type: Types.SetUserMessage,
+              payload: {
+                message: "Error logging in - Wrong password.",
+                type: MessageType.ERROR,
+              },
+            });
+          }
+        } else {
+          dispatch({
+            type: Types.SetUserMessage,
+            payload: {
+              message: "Error logging in - Username does not exist.",
+              type: MessageType.ERROR,
+            },
+          });
+        }
+      });
   };
 
   const signUpHandler = () => {
-    // TODO: sign up
-    console.log("SIGN UP BY", signUpEmail);
+    const hashedPassword = bcrypt.hashSync(
+      signUpPassword,
+      bcrypt.genSaltSync()
+    );
+
+    const newUser = { user: signUpUser, password: hashedPassword };
+    axios.post("http://localhost:1337/users", newUser).then(() => {
+      dispatch({ type: Types.SetIsLoggedIn, payload: { status: true } });
+      dispatch({ type: Types.SetUser, payload: { user: signUpUser } });
+    });
     closeLogin();
   };
 
@@ -44,33 +83,37 @@ export const Login = ({ open, closeLogin }: LoginI) => {
       aria-describedby="modal-modal-description"
     >
       <S.LoginContainer>
-        <p>Login or sign up to contribute to the discussion!</p>
         {!signUp ? (
           <>
             <Input
-              type="email"
-              value={loginEmail}
-              onChange={(e) => setLoginEmail(e.target.value)}
-              placeholder="Enter your email"
+              type="text"
+              value={user}
+              onChange={(e) => setUser(e.target.value)}
+              placeholder="Enter your username"
               autoFocus
             />
             <Input
               type="password"
-              value={loginPassword}
-              onChange={(e) => setLoginPassword(e.target.value)}
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
               placeholder="Password"
             />
 
-            <Button onClick={() => loginHandler()}>Login</Button>
+            <Button
+              onClick={() => loginHandler()}
+              disabled={user.length === 0 || password.length === 0}
+            >
+              Login
+            </Button>
             <Link onClick={() => setSignUp(true)}>Or sign up</Link>
           </>
         ) : (
           <>
             <Input
-              type="email"
-              value={signUpEmail}
-              onChange={(e) => setSignUpEmail(e.target.value)}
-              placeholder="Enter your email"
+              type="text"
+              value={signUpUser}
+              onChange={(e) => setSignUpUser(e.target.value)}
+              placeholder="Enter your username"
               autoFocus
             />
             <Input
@@ -80,7 +123,12 @@ export const Login = ({ open, closeLogin }: LoginI) => {
               placeholder="Password"
             />
 
-            <Button onClick={() => signUpHandler()}>Create account</Button>
+            <Button
+              onClick={() => signUpHandler()}
+              disabled={signUpUser.length === 0 || signUpPassword.length === 0}
+            >
+              Create account
+            </Button>
             <Link onClick={() => setSignUp(false)}>Cancel</Link>
           </>
         )}

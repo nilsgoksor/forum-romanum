@@ -13,15 +13,10 @@ export const LoginContainer = styled.div`
   align-items: center;
   justify-content: center;
   width: 400px;
-  height: 400px;
+  height: 200px;
   position: fixed;
-  top: calc(50% - 200px);
+  top: calc(50% - 100px);
   left: calc(50% - 200px);
   background-color: #fff;
   border: 2px solid #000;
-`;
-
-export const Author = styled.h3`
-  margin: 0px;
-  color: #fff;
 `;
