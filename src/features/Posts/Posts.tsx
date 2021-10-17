@@ -1,26 +1,17 @@
 import * as S from "./Posts.styles";
 import { PostI } from "../../model/post/Post.interface";
-import { ForumPost } from "../../components/ForumPost";
+import { ForumPost } from "./ForumPost";
 
 interface PostsI {
   posts: PostI[];
-  onSavePost(post: PostI): void;
-  onDeletePost(id: number): void;
 }
 
-export const Posts = ({ posts, onSavePost, onDeletePost }: PostsI) => {
+export const Posts = ({ posts }: PostsI) => {
   return (
     <S.PostsContainer>
-      <S.PostContainer>
-        {posts.map((post) => (
-          <ForumPost
-            key={post.id}
-            {...post}
-            onSavePost={onSavePost}
-            onDeletePost={onDeletePost}
-          />
-        ))}
-      </S.PostContainer>
+      {posts.map((post) => (
+        <ForumPost key={post.id} post={post} />
+      ))}
     </S.PostsContainer>
   );
 };
