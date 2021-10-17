@@ -7,9 +7,11 @@ interface PostsI {
 }
 
 export const Posts = ({ posts }: PostsI) => {
+  const sortedPosts = [...posts].reverse();
+
   return (
     <S.PostsContainer>
-      {posts.map((post) => (
+      {sortedPosts.map((post) => (
         <ForumPost key={post.id} post={post} />
       ))}
     </S.PostsContainer>
