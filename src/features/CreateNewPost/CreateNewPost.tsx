@@ -1,19 +1,43 @@
 import { useContext, useState } from "react";
 import { Button, CardActions, CardContent, TextField } from "@mui/material";
 import * as S from "./CreateNewPost.styles";
-import { AppContext } from "../../state";
-import { CreatePostI } from "../../model/post/Post.interface";
+import { AppContext, Types } from "../../state";
+import { CreatePostI, PostI } from "../../model/post/Post.interface";
+import axios from "axios";
+import { MessageType } from "../../components/UserMessage";
 
-interface CreateNewPostI {
-  onCreatePost(post: CreatePostI): void;
-}
-
-export const CreateNewPost = ({ onCreatePost }: CreateNewPostI) => {
-  const { state } = useContext(AppContext);
+export const CreateNewPost = () => {
+  const { state, dispatch } = useContext(AppContext);
   const { isLoggedIn, user } = state;
 
   const [creating, setCreating] = useState(false);
   const [body, setBody] = useState("");
+
+  const onCreateHandler = () => {
+    const createdPost: CreatePostI = {
+      body: body,
+      author: user,
+      nbrOfComments: 0,
+      dateCreated: new Date(),
+    };
+    axios
+      .post<PostI>(`http://localhost:1337/posts`, createdPost)
+      .then((res) => {
+        setCreating(false);
+        setBody("");
+        dispatch({
+          type: Types.CreatePost,
+          payload: { createdPost: { id: res.data.id, ...createdPost } },
+        });
+      })
+      .catch(() => {
+        dispatch({
+          type: Types.SetUserMessage,
+          payload: { message: "Error creating post", type: MessageType.ERROR },
+        });
+      });
+    return state;
+  };
 
   if (!isLoggedIn) {
     return (
@@ -35,12 +59,20 @@ export const CreateNewPost = ({ onCreatePost }: CreateNewPostI) => {
           <CardContent>
             <TextField
               fullWidth
+              placeholder="What's on your mind?"
               autoFocus
+              multiline
               value={body}
               onChange={(e) => setBody(e.target.value)}
             />
           </CardContent>
           <CardActions>
+            <Button
+              onClick={() => onCreateHandler()}
+              disabled={body.length === 0}
+            >
+              Create
+            </Button>
             <Button
               onClick={() => {
                 setCreating(false);
@@ -48,15 +80,6 @@ export const CreateNewPost = ({ onCreatePost }: CreateNewPostI) => {
               }}
             >
               Cancel
-            </Button>
-            <Button
-              onClick={() => {
-                onCreatePost({ body: body, author: user });
-                setCreating(false);
-                setBody("");
-              }}
-            >
-              Create
             </Button>
           </CardActions>
         </S.PostContainer>

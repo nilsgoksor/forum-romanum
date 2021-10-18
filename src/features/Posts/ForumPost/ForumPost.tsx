@@ -11,6 +11,7 @@ import {
   TextField,
 } from "@mui/material";
 import * as S from "./ForumPost.styles";
+import { CommentSection } from "./CommentSection";
 import EditIcon from "@mui/icons-material/Edit";
 import CommentIcon from "@mui/icons-material/Comment";
 import { AppContext, Types } from "../../../state";
@@ -28,6 +29,7 @@ export const ForumPost = ({ post }: ForumPostI) => {
   const [editing, setEditing] = useState(false);
   const [editBody, setEditBody] = useState(post.body);
   const [showComments, setShowComments] = useState(false);
+  const [nbrOfComments, setNbrOfComments] = useState(post.nbrOfComments);
 
   useEffect(() => {
     if (editing) {
@@ -113,7 +115,7 @@ export const ForumPost = ({ post }: ForumPostI) => {
             <IconButton onClick={() => setShowComments(!showComments)}>
               <CommentIcon />
             </IconButton>
-            <p>{post.nbrOfComments}</p>
+            <p>{nbrOfComments}</p>
           </>
         ) : (
           <>
@@ -128,7 +130,13 @@ export const ForumPost = ({ post }: ForumPostI) => {
         )}
       </CardActions>
       <Collapse in={showComments} timeout="auto" unmountOnExit>
-        {showComments && <p>comments</p>}
+        {showComments && (
+          <CommentSection
+            post={post}
+            nbrOfComments={nbrOfComments}
+            setNbrOfComments={(count: number) => setNbrOfComments(count)}
+          />
+        )}
       </Collapse>
     </S.ForumPostContainer>
   );
