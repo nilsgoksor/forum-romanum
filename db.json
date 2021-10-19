@@ -1,5 +1,58 @@
 {
-  "posts": [],
-  "comments": [],
-  "users": []
+  "posts": [
+    {
+      "id": 1,
+      "body": "What's everyone listening to on Storytel this week? I just finished 'Harry Potter' for the 11th time and need something new :)",
+      "author": "JK.Rowling",
+      "nbrOfComments": 1,
+      "dateCreated": "2021-10-19T17:17:24.491Z"
+    },
+    {
+      "id": 2,
+      "body": "This forum is pretty cool but someone should have put more effort into the design!",
+      "author": "Rich Harris",
+      "nbrOfComments": 2,
+      "dateCreated": "2021-10-19T17:23:02.396Z"
+    }
+  ],
+  "comments": [
+    {
+      "postId": 1,
+      "body": "\"Sapiens\" by Yuval Noah Harari is pretty interesting! And I'm also listening to \"A Moveable Feast\" by Hemingway since I'm going to Paris on friday",
+      "author": "Nils",
+      "dateCreated": "2021-10-19T17:21:30.582Z",
+      "id": 1
+    },
+    {
+      "postId": 2,
+      "body": "Yes! Especially the login flow. I heared the security sucks too, but atleast they aren't storing their password in plain text",
+      "author": "JK.Rowling",
+      "dateCreated": "2021-10-19T17:24:54.180Z",
+      "id": 2
+    },
+    {
+      "postId": 2,
+      "body": "Glad you like it! I wish I could work fulltime on this, then I would've put more effort into the design, testing & security for sure, and maybe even rebuidling it in svelte. If you have more feedback or questions, please don't hesitate to get in touch with me: +46703360147, nils.goksor@gmail.com",
+      "author": "Nils",
+      "dateCreated": "2021-10-19T17:30:36.474Z",
+      "id": 3
+    }
+  ],
+  "users": [
+    {
+      "user": "Nils",
+      "password": "$2a$10$t.EPbvvR1QPLrISNZKx8eOFXHs0paKSut03sV5SN3Dnocr2q8rGG2",
+      "id": 1
+    },
+    {
+      "user": "JK.Rowling",
+      "password": "$2a$10$61F2ERIVsk7U7YYPr56KHOv14ySWjdNjioh.dvKf8OInwXwbqrKG6",
+      "id": 2
+    },
+    {
+      "user": "Rich Harris",
+      "password": "$2a$10$mwyQFZVvv0G1IhDZ/FYxdePZAAy47yKZ4QrXj9yZGuB4ZJ.i1Mgau",
+      "id": 3
+    }
+  ]
 }
