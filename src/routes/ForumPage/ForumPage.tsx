@@ -8,7 +8,7 @@ import { MessageType, UserMessage } from "../../components/UserMessage";
 
 export const ForumPage = () => {
   const { state, dispatch } = useContext(AppContext);
-  const { posts, userMessage } = state;
+  const { posts, userMessage, isLoggedIn } = state;
 
   useEffect(() => {
     axios
@@ -39,7 +39,11 @@ export const ForumPage = () => {
         }
         type={userMessage.type}
       />
-      <CreateNewPost />
+      {!isLoggedIn ? (
+        <p>Login to contribute to the forum</p>
+      ) : (
+        <CreateNewPost />
+      )}
       <Posts posts={posts} />
     </>
   );

@@ -102,6 +102,7 @@ export const Login = ({ open, closeLogin }: LoginI) => {
             <Button
               onClick={() => loginHandler()}
               disabled={user.length === 0 || password.length === 0}
+              data-testid="login-modal-button"
             >
               Login
             </Button>

@@ -88,7 +88,10 @@ export const ForumPost = ({ post }: ForumPostI) => {
         avatar={<Avatar>{post.author[0]}</Avatar>}
         action={
           userIsAuthor && (
-            <IconButton onClick={() => setEditing(!editing)}>
+            <IconButton
+              onClick={() => setEditing(!editing)}
+              data-testid="toggle-edit"
+            >
               <EditIcon />
             </IconButton>
           )
@@ -106,13 +109,17 @@ export const ForumPost = ({ post }: ForumPostI) => {
             multiline
             value={editBody}
             onChange={(e) => setEditBody(e.target.value)}
+            inputProps={{ "data-testid": "edit-body" }}
           />
         )}
       </CardContent>
       <CardActions>
         {!editing ? (
           <>
-            <IconButton onClick={() => setShowComments(!showComments)}>
+            <IconButton
+              onClick={() => setShowComments(!showComments)}
+              data-testid="toggle-show-comments"
+            >
               <CommentIcon />
             </IconButton>
             <p>{nbrOfComments}</p>

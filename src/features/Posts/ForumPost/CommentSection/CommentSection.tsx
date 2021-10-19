@@ -118,7 +118,7 @@ export const CommentSection = ({
   };
 
   return (
-    <>
+    <div data-testid="comment-section">
       {isLoggedIn && (
         <CreateNewComment
           postId={post.id}
@@ -134,6 +134,6 @@ export const CommentSection = ({
         }
         onDeleteComment={(id: number) => handleDeleteComment(id)}
       />
-    </>
+    </div>
   );
 };

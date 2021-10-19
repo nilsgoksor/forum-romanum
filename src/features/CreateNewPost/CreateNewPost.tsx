@@ -8,7 +8,7 @@ import { MessageType } from "../../components/UserMessage";
 
 export const CreateNewPost = () => {
   const { state, dispatch } = useContext(AppContext);
-  const { isLoggedIn, user } = state;
+  const { user } = state;
 
   const [creating, setCreating] = useState(false);
   const [body, setBody] = useState("");
@@ -39,14 +39,6 @@ export const CreateNewPost = () => {
     return state;
   };
 
-  if (!isLoggedIn) {
-    return (
-      <S.CreateNewPostContainer>
-        <p>Login to contribute to the forum</p>
-      </S.CreateNewPostContainer>
-    );
-  }
-
   return (
     <S.CreateNewPostContainer>
       <p>{`Welcome ${user}!`}</p>
@@ -64,6 +56,7 @@ export const CreateNewPost = () => {
               multiline
               value={body}
               onChange={(e) => setBody(e.target.value)}
+              inputProps={{ "data-testid": "create-post-input" }}
             />
           </CardContent>
           <CardActions>
