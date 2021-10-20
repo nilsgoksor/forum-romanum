@@ -84,7 +84,7 @@ export const Login = ({ open, closeLogin }: LoginI) => {
     >
       <S.LoginContainer>
         {!signUp ? (
-          <>
+          <S.Form onSubmit={loginHandler}>
             <Input
               type="text"
               value={user}
@@ -100,16 +100,16 @@ export const Login = ({ open, closeLogin }: LoginI) => {
             />
 
             <Button
-              onClick={() => loginHandler()}
+              type="submit"
               disabled={user.length === 0 || password.length === 0}
               data-testid="login-modal-button"
             >
               Login
             </Button>
             <Link onClick={() => setSignUp(true)}>Or sign up</Link>
-          </>
+          </S.Form>
         ) : (
-          <>
+          <S.Form onSubmit={signUpHandler}>
             <Input
               type="text"
               value={signUpUser}
@@ -125,13 +125,13 @@ export const Login = ({ open, closeLogin }: LoginI) => {
             />
 
             <Button
-              onClick={() => signUpHandler()}
+              type="submit"
               disabled={signUpUser.length === 0 || signUpPassword.length === 0}
             >
               Create account
             </Button>
             <Link onClick={() => setSignUp(false)}>Cancel</Link>
-          </>
+          </S.Form>
         )}
       </S.LoginContainer>
     </Modal>

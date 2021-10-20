@@ -20,3 +20,10 @@ export const LoginContainer = styled.div`
   background-color: #fff;
   border: 2px solid #000;
 `;
+
+export const Form = styled.form`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+`;
